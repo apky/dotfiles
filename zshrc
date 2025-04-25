@@ -1,3 +1,8 @@
+# .zshrc is for interactive shells. executes after .zprofile
+
+# Display Message of the Day (MOTD)
+[[ ! -f ~/.motd.zsh ]] || source ~/.motd.zsh
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -125,4 +130,3 @@ zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
