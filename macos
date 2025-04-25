@@ -1,0 +1,296 @@
+#!/usr/bin/env zsh
+
+# Change this variable to your git email address
+git_email="alex@meibel.ai"
+# Change this variable to your preferred go version
+go_version="1.24.2"
+# Change these variables to your preferred brew packages
+brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep"
+brew_casks="brave-browser google-chrome font-meslo-for-powerlevel10k iterm2 visual-studio-code"
+brew_additional_casks="anki netnewswire nordvpn signal 1password zoom adobe-acrobat-reader"
+brew_dev_tools="kubernetes-cli postgresql@15 pipx yarn jq golang-migrate"
+brew_dev_tools_casks="slack openvpn-connect postman swiftbar notion google-cloud-sdk"
+# Change this array for preferred go packages
+go_packages=(
+  github.com/swaggo/swag/cmd/swag@latest
+  github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
+)
+# Change this variable to your preferred npm global packages
+npm_global_packages="eslint fkill-cli typescript swagger2openapi"
+# Change this variable to your preferred gcloud components
+gcloud_components=(
+  gke-gcloud-auth-plugin 
+  cloud-sql-proxy
+)
+# post-installation notes will be printed near the end of the script
+notes="NOTES:
+postgres is most likely installed at /opt/homebrew/opt/postgresql@15/bin/postgres
+consider making an alias for it\n"
+# todo is the very last thing printed before the script exits
+todo="TODO:
+-install:
+  Personal Apps
+-Restart Terminal.app
+-restore dotfiles, such as....
+    ** use a dotfile manager like dotbot ** or, if you must:
+    copy .zshrc from your backup/re-login
+    copy .zprofile from your backup/re-login
+    copy .gitconfig from your backup
+    copy .gitignore_global from your backup
+    copy .npmrc from your backup/re-login
+-login to literally everything\n"
+
+echo "Hello $(whoami)! Let's get you set up."
+
+if read -q "REPLY?Do you want to install xcode command line tools? (required for most things) (Y/n): "; then
+  echo 
+  echo "installing xcode command line tools"
+  echo "Continue the installation via the launcher app"
+  xcode-select --install
+  read -q "REPLY?Have you completed the xcode installation via launcher? (Y/n): " || { echo; echo "Operation cancelled."; exit 1; }
+else
+  echo
+  echo "OK, skipping xcode command line tools installation."
+fi
+
+if xcode-select -p &>/dev/null; then
+    echo "Detected that Xcode Command Line Tools are installed"
+else
+    echo "Xcode Command Line Tools are NOT installed. Exiting..."
+    exit 1
+fi
+
+
+if read -q "REPLY?Do you want to install go${go_version} (Y/n): "; then
+  echo
+  echo "installing go"
+  curl -L -o go${go_version}.darwin-arm64.pkg "https://go.dev/dl/go${go_version}.darwin-arm64.pkg"
+  open go${go_version}.darwin-arm64.pkg
+  echo "Please follow the instructions to install Go."
+  read -q "REPLY?Have you completed installing go via the launcher? (Y/n): " || { echo; echo "Operation cancelled."; exit 1; }
+  echo
+  echo "Continuing with the script..."
+  rm go${go_version}.darwin-arm64.pkg
+else
+  echo
+  echo "OK, skipping Go installation."
+fi
+
+source ~/.zshrc
+
+if go version &>/dev/null; then
+    echo "Detected that Go is installed"
+else
+    echo "Go is NOT installed or configured properly. Exiting..."
+    exit 1
+fi
+
+if read -q "REPLY?Do you want to install brew (Y/n): "; then
+    echo
+    echo "installing homebrew"
+    # install homebrew https://brew.sh
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo >> $HOME/.zprofile
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"else
+fi
+
+echo
+
+if brew --version &>/dev/null; then
+    echo "Detected that Homebrew is installed"
+else
+    echo "Brew is NOT installed or configured properly. Exiting..."
+    exit 1
+fi
+
+echo "brew installing basic stuff"
+
+if read -q "REPLY?Install basic brew stuff: ${brew_basic}? (Y/n): "; then
+  # This block executes if the user answered Yes
+  echo
+  brew install ${brew_basic}
+else
+  echo
+fi
+
+if read -q "REPLY?Install brew casks: ${brew_casks}? (Y/n): "; then
+  echo
+  echo "brew installing casks"
+  brew install --cask ${brew_casks}
+else
+  echo
+fi
+
+if read -q "REPLY?Install ${brew_additional_casks}? (Y/n): "; then
+  echo
+  echo "brew installing casks"
+  brew install --cask ${brew_additional_casks}
+else
+  echo
+fi
+
+if read -q "REPLY?Install ${brew_dev_tools} ${brew_dev_tools_casks}(Y/n): "; then
+  echo
+  echo "brew installing dev tools"
+  brew install ${brew_dev_tools}
+  echo "brew installing dev tool casks"
+  brew install --cask ${brew_dev_tools_casks}
+else
+  echo
+fi
+
+if gcloud --version &>/dev/null; then
+    echo "Detected that gcloud is installed"
+    if read -q "REPLY?Install gcloud components ${gcloud_components}? (Y/n): "; then
+      echo
+      for component in "${gcloud_components[@]}"; do
+        echo "installing ${component}"
+        gcloud components install ${component}
+      done
+    else
+      echo
+    fi
+else
+    echo "gcloud is NOT installed or configured properly."
+fi
+
+if read -q "REPLY?Install n - Node.js manager? (Y/n): "; then
+  echo
+  echo "installing node (via n-install)"
+  curl -L https://git.io/n-install | bash
+  source ~/.zshrc
+  echo "node --version: $(node --version)"
+  echo "npm --version: $(npm --version)"
+else
+  echo
+fi
+
+if node --version &>/dev/null && npm --version &>/dev/null; then
+    echo "Detected that node and npm are installed properly"
+    if read -q "REPLY?Install global npm packages ${npm_global_packages}? (Y/n): "; then
+      echo
+      npm install --global ${npm_global_packages}
+    else
+      echo
+    fi
+else
+    echo "Node or npm is NOT installed or configured properly."
+fi
+
+if read -q "REPLY?Install global go packages ${go_packages} (Y/n): "; then
+  echo
+  for package in "${go_packages[@]}"; do
+    echo "installing ${package}"
+    go install ${package}
+  done
+else
+  echo
+fi
+
+if read -q "REPLY?Install openapi-python client? (Y/n): "; then
+  echo
+  echo "installing openapi-python-client"
+  pipx ensurepath
+  pipx install openapi-python-client --include-deps
+else
+  echo
+fi
+
+if read -q "REPLY?Do you want to generate SSH key for GitHub for ${git_email}? (Y/n): "; then
+  echo
+  echo "Generating a new SSH key for GitHub"
+  ssh-keygen -t ed25519 -C "${git_email}" -f ~/.ssh/id_ed25519
+  eval "$(ssh-agent -s)"
+  touch ~/.ssh/config
+  echo "Host github.com\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_ed25519" | tee ~/.ssh/config
+  ssh-add -K ~/.ssh/id_ed25519
+  echo "run 'pbcopy < ~/.ssh/id_ed25519.pub' and paste that into GitHub"
+else
+  echo
+  echo "OK, skipping SSH key generation."
+fi
+
+# The following was copied from ~/.macos — https://mths.be/macos
+# Modified by Alex Powell
+
+if read -q "REPLY?Make systems preference modifications to key repeat rate, hot corners, etc? (Y/n): "; then
+  echo
+  # Set a decently fast keyboard repeat rate. Use 1 and 10 for blazingly fast
+  defaults write NSGlobalDomain KeyRepeat -int 2
+  defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+  # Set Documents as the default location for new Finder windows
+  # For other paths, use `PfLo` and `file:///full/path/here/`
+  defaults write com.apple.finder NewWindowTarget -string "PfLo"
+  defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Documents/"
+
+  # Hot corners
+  # Possible values:
+  #  0: no-op
+  #  2: Mission Control
+  #  3: Show application windows
+  #  4: Desktop
+  #  5: Start screen saver
+  #  6: Disable screen saver
+  #  7: Dashboard
+  # 10: Put display to sleep
+  # 11: Launchpad
+  # 12: Notification Center
+  # 1048576 is ⌘ I think
+  # Top left screen corner → Application windows
+  defaults write com.apple.dock wvous-tl-corner -int 3
+  defaults write com.apple.dock wvous-tl-modifier -int 1048576
+  # Top right screen corner → Notification Center
+  defaults write com.apple.dock wvous-tr-corner -int 12
+  defaults write com.apple.dock wvous-tr-modifier -int 1048576
+  # Bottom left screen corner → Desktop
+  defaults write com.apple.dock wvous-bl-corner -int 4
+  defaults write com.apple.dock wvous-bl-modifier -int 1048576
+  # Bottom right screen corner → Desktop
+  defaults write com.apple.dock wvous-br-corner -int 4
+  defaults write com.apple.dock wvous-br-modifier -int 1048576
+
+  ###############################################################################
+  # Activity Monitor                                                            #
+  ###############################################################################
+
+  # Show the main window when launching Activity Monitor
+  defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
+
+  # Visualize CPU usage in the Activity Monitor Dock icon
+  # defaults write com.apple.ActivityMonitor IconType -int 5
+
+  # Show all processes in Activity Monitor
+  defaults write com.apple.ActivityMonitor ShowCategory -int 0
+
+  # Sort Activity Monitor results by CPU usage
+  defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
+  defaults write com.apple.ActivityMonitor SortDirection -int 0
+else
+  echo
+  echo "OK, skipping system preference modifications."
+fi
+
+if read -q "REPLY?Do you want to install ohmyzsh? (Y/n): "; then
+  echo
+  RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  echo
+  echo "OK, skipping ohmyzsh."
+fi
+
+if read -q "REPLY?Do you want to install powerlevel10k for ohmyzsh? (Y/n): "; then
+  echo
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+  echo "Open ~/.zshrc, find the line that sets ZSH_THEME, and change its value to 'powerlevel10k/powerlevel10k'"
+else
+  echo
+  echo "OK, skipping powerlevel10k."
+fi
+
+echo "Done. Note that some of these changes require a logout/restart to take effect."
+
+printf $notes
+echo
+printf $todo

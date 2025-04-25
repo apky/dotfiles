@@ -1,0 +1,23 @@
+- defaults:
+    link:
+      relink: true
+      force: true
+
+- clean: ['~', '~/.oh-my-zsh/custom']
+
+- link:
+    ~/.zshrc: zshrc
+    ~/.zprofile: zprofile
+    ~/.motd.zsh: motd.zsh
+    ~/.p10k.zsh: p10k.zsh
+    ~/.oh-my-zsh/custom/alias.zsh: oh-my-zsh/custom/alias.zsh
+    ~/.gitconfig: gitconfig
+    ~/.gitignore_global: gitignore_global
+    ~/.macos: macos
+  
+- create:
+    - ~/code
+    - ~/pgsql
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]

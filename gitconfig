@@ -1,0 +1,14 @@
+[user]
+	signingkey = /Users/alexpowell/.ssh/id_ed25519.pub
+	name = Alex P.
+	email = 74688818+apky@users.noreply.github.com
+[core]
+	editor = code --wait
+	excludesfile = /Users/alexpowell/.gitignore_global
+	autocrlf = input
+[init]
+	defaultBranch = main
+[push]
+	followTags = true
+	# No need to manually push tags
+	# https://git-scm.com/docs/git-config#git-config-pushfollowTags
