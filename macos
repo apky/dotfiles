@@ -5,10 +5,10 @@ git_email="alex@meibel.ai"
 # Change this variable to your preferred go version
 go_version="1.24.2"
 # Change these variables to your preferred brew packages
-brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep"
+brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep antigen"
 brew_casks="brave-browser google-chrome font-meslo-for-powerlevel10k iterm2 visual-studio-code"
 brew_additional_casks="anki netnewswire nordvpn signal 1password zoom adobe-acrobat-reader"
-brew_dev_tools="kubernetes-cli postgresql@15 pipx yarn jq golang-migrate"
+brew_dev_tools="kubernetes-cli postgresql@15 restish pipx yarn jq golang-migrate"
 brew_dev_tools_casks="slack openvpn-connect postman swiftbar notion google-cloud-sdk"
 # Change this array for preferred go packages
 go_packages=(
@@ -25,7 +25,8 @@ gcloud_components=(
 # post-installation notes will be printed near the end of the script
 notes="NOTES:
 postgres is most likely installed at /opt/homebrew/opt/postgresql@15/bin/postgres
-consider making an alias for it\n"
+consider making an alias for it
+\n"
 # todo is the very last thing printed before the script exits
 todo="TODO:
 -install:
@@ -270,23 +271,6 @@ if read -q "REPLY?Make systems preference modifications to key repeat rate, hot 
 else
   echo
   echo "OK, skipping system preference modifications."
-fi
-
-if read -q "REPLY?Do you want to install ohmyzsh? (Y/n): "; then
-  echo
-  RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-else
-  echo
-  echo "OK, skipping ohmyzsh."
-fi
-
-if read -q "REPLY?Do you want to install powerlevel10k for ohmyzsh? (Y/n): "; then
-  echo
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-  echo "Open ~/.zshrc, find the line that sets ZSH_THEME, and change its value to 'powerlevel10k/powerlevel10k'"
-else
-  echo
-  echo "OK, skipping powerlevel10k."
 fi
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."

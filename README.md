@@ -1,4 +1,4 @@
-**CAUTION:** `install.conf.yaml` is set to _force_ links, meaning it will delete any existing dotfiles it wants to replace with symlinks.
+⚠️ `install.conf.yaml` is set to _force_ links, meaning it will delete any existing dotfiles it wants to replace with symlinks.
 
 ```
 cd ~
