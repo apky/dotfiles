@@ -26,4 +26,8 @@ if [[ $HOURS -ge 8 ]]; then
     printf "%s brew upgrade %s           # upgrade everything %s\n" "$TEAL" "$PURPLE" "$RESET"
     printf "%s brew upgrade <formula> %s # upgrade specific formula %s\n" "$TEAL" "$PURPLE" "$RESET"
     printf "\n"
+    printf "%s antigen update: %s        # update antigen bundles %s\n" "$TEAL" "$PURPLE" "$RESET"
+    printf "%s antigen revert: %s        # revert bad upate %s\n" "$TEAL" "$PURPLE" "$RESET"
+    printf "%s antigen cleanup: %s       # clean unused repos %s\n" "$TEAL" "$PURPLE" "$RESET"
+    printf "\n"
 fi 
