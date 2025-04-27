@@ -26,7 +26,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # aliases
-antigen bundle ~/.antigen/bundles/robbyrussell/oh-my-zsh/custom
+antigen bundle ~/dotfiles/oh-my-zsh/custom
 
 # ohmyzsh themes
 antigen theme romkatv/powerlevel10k

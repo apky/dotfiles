@@ -22,6 +22,13 @@ gcloud_components=(
   gke-gcloud-auth-plugin 
   cloud-sql-proxy
 )
+# Change this variable to your dotfile repo
+dotfiles_repo="git@github.com:apky/dotfiles.git"
+# These are the dotfiles that will be backed up before being replaced
+dotfiles_to_backup=(
+  .zshrc
+  .zprofile
+)
 # post-installation notes will be printed near the end of the script
 notes="NOTES:
 postgres is most likely installed at /opt/homebrew/opt/postgresql@15/bin/postgres
@@ -273,6 +280,20 @@ else
   echo "OK, skipping system preference modifications."
 fi
 
+if read -q "REPLY?Do you want to install dotfiles from ${dotfiles_repo} (Y/n): "; then
+  echo
+  # backup existing dotfiles (if they exist)
+  for dotfile in "${dotfiles_to_backup[@]}"; do
+    echo "copying ${dotfile} to ${dotfile}.pre-dotbot\n"
+    [[ ! -f ~/${dotfile} ]] || cp ~/${dotfile} ~/${dotfile}.pre-dotbot
+  done
+  echo "cloning ${dotfiles_repo}"
+  cd ~
+  git clone ${dotfiles_repo} --recursive
+  echo "installing dotfiles\n"
+  cd dotfiles && ./install
+  echo "dotfiles installed\n\n"
+fi
 echo "Done. Note that some of these changes require a logout/restart to take effect."
 
 printf $notes

@@ -10,7 +10,6 @@
     ~/.zprofile: zprofile
     ~/.motd.zsh: motd.zsh
     ~/.p10k.zsh: p10k.zsh
-    ~/.antigen/bundles/robbyrussell/oh-my-zsh/custom/alias.zsh: oh-my-zsh/custom/alias.zsh
     ~/.gitconfig: gitconfig
     ~/.gitignore_global: gitignore_global
     ~/.macos: macos
