@@ -51,14 +51,12 @@ todo="TODO:
 echo "Hello $(whoami)! Let's get you set up."
 
 if read -q "REPLY?Do you want to install xcode command line tools? (required for most things) (Y/n): "; then
-  echo 
-  echo "installing xcode command line tools"
+  echo "\ninstalling xcode command line tools"
   echo "Continue the installation via the launcher app"
   xcode-select --install
   read -q "REPLY?Have you completed the xcode installation via launcher? (Y/n): " || { echo; echo "Operation cancelled."; exit 1; }
 else
-  echo
-  echo "OK, skipping xcode command line tools installation."
+  echo "\nOK, skipping xcode command line tools installation."
 fi
 
 if xcode-select -p &>/dev/null; then
@@ -70,8 +68,7 @@ fi
 
 
 if read -q "REPLY?Do you want to install go${go_version} (Y/n): "; then
-  echo
-  echo "installing go"
+  echo "\ninstalling go"
   curl -L -o go${go_version}.darwin-arm64.pkg "https://go.dev/dl/go${go_version}.darwin-arm64.pkg"
   open go${go_version}.darwin-arm64.pkg
   echo "Please follow the instructions to install Go."
@@ -80,8 +77,7 @@ if read -q "REPLY?Do you want to install go${go_version} (Y/n): "; then
   echo "Continuing with the script..."
   rm go${go_version}.darwin-arm64.pkg
 else
-  echo
-  echo "OK, skipping Go installation."
+  echo "\nOK, skipping Go installation."
 fi
 
 source ~/.zshrc
@@ -94,8 +90,7 @@ else
 fi
 
 if read -q "REPLY?Do you want to install brew (Y/n): "; then
-    echo
-    echo "installing homebrew"
+    echo "\ninstalling homebrew"
     # install homebrew https://brew.sh
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo >> $HOME/.zprofile
@@ -106,9 +101,9 @@ fi
 echo
 
 if brew --version &>/dev/null; then
-    echo "Detected that Homebrew is installed"
+    echo "\nDetected that Homebrew is installed"
 else
-    echo "Brew is NOT installed or configured properly. Exiting..."
+    echo "\nBrew is NOT installed or configured properly. Exiting..."
     exit 1
 fi
 
@@ -123,24 +118,21 @@ else
 fi
 
 if read -q "REPLY?Install brew casks: ${brew_casks}? (Y/n): "; then
-  echo
-  echo "brew installing casks"
+  echo "\nbrew installing casks"
   brew install --cask ${brew_casks}
 else
   echo
 fi
 
 if read -q "REPLY?Install ${brew_additional_casks}? (Y/n): "; then
-  echo
-  echo "brew installing casks"
+  echo "\nbrew installing casks"
   brew install --cask ${brew_additional_casks}
 else
   echo
 fi
 
 if read -q "REPLY?Install ${brew_dev_tools} ${brew_dev_tools_casks}(Y/n): "; then
-  echo
-  echo "brew installing dev tools"
+  echo "\nbrew installing dev tools"
   brew install ${brew_dev_tools}
   echo "brew installing dev tool casks"
   brew install --cask ${brew_dev_tools_casks}
@@ -164,8 +156,7 @@ else
 fi
 
 if read -q "REPLY?Install n - Node.js manager? (Y/n): "; then
-  echo
-  echo "installing node (via n-install)"
+  echo "\ninstalling node (via n-install)"
   curl -L https://git.io/n-install | bash
   source ~/.zshrc
   echo "node --version: $(node --version)"
@@ -197,8 +188,7 @@ else
 fi
 
 if read -q "REPLY?Install openapi-python client? (Y/n): "; then
-  echo
-  echo "installing openapi-python-client"
+  echo "\ninstalling openapi-python-client"
   pipx ensurepath
   pipx install openapi-python-client --include-deps
 else
@@ -206,8 +196,7 @@ else
 fi
 
 if read -q "REPLY?Do you want to generate SSH key for GitHub for ${git_email}? (Y/n): "; then
-  echo
-  echo "Generating a new SSH key for GitHub"
+  echo "\nGenerating a new SSH key for GitHub"
   ssh-keygen -t ed25519 -C "${git_email}" -f ~/.ssh/id_ed25519
   eval "$(ssh-agent -s)"
   touch ~/.ssh/config
@@ -215,8 +204,7 @@ if read -q "REPLY?Do you want to generate SSH key for GitHub for ${git_email}? (
   ssh-add -K ~/.ssh/id_ed25519
   echo "run 'pbcopy < ~/.ssh/id_ed25519.pub' and paste that into GitHub"
 else
-  echo
-  echo "OK, skipping SSH key generation."
+  echo "\nOK, skipping SSH key generation."
 fi
 
 # The following was copied from ~/.macos — https://mths.be/macos
@@ -276,15 +264,13 @@ if read -q "REPLY?Make systems preference modifications to key repeat rate, hot 
   defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
   defaults write com.apple.ActivityMonitor SortDirection -int 0
 else
-  echo
-  echo "OK, skipping system preference modifications."
+  echo "\nOK, skipping system preference modifications.\n"
 fi
 
 if read -q "REPLY?Do you want to install dotfiles from ${dotfiles_repo} (Y/n): "; then
-  echo
   # backup existing dotfiles (if they exist)
   for dotfile in "${dotfiles_to_backup[@]}"; do
-    echo "copying ${dotfile} to ${dotfile}.pre-dotbot\n"
+    echo "copying ${dotfile} to ${dotfile}.pre-dotbot"
     [[ ! -f ~/${dotfile} ]] || cp ~/${dotfile} ~/${dotfile}.pre-dotbot
   done
   echo "cloning ${dotfiles_repo}"
@@ -294,7 +280,8 @@ if read -q "REPLY?Do you want to install dotfiles from ${dotfiles_repo} (Y/n): "
   cd dotfiles && ./install
   echo "dotfiles installed\n\n"
 fi
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+
+echo "\nDone. Note that some of these changes require a logout/restart to take effect."
 
 printf $notes
 echo
