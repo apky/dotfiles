@@ -1,14 +1,31 @@
 #!/usr/bin/env zsh
 
+# USAGE: ./.motd.zsh [seconds]
+#  will show message of the day if more than [seconds] have passed since last login
+#  default: 28800 seconds (8 hours)
+#  example: ./.motd.zsh 14400  # will show message of the day if more than 4 hours have passed since last login
+
+THRESHOLD=28800  # default threshold of 8 hours in seconds
+
+# Check that the proper number of arguments is passed
+if [[ $# -gt 1 ]]; then
+    echo "Usage: $0 [seconds]"
+    exit 1
+fi
+
+# Check if the user provided an argument
+if [[ -n $1 ]]; then
+    THRESHOLD=$1
+fi
+
 # Find the last login time in seconds since epoch
 LAST_LOGIN_EPOCH=$(last -2 $USER | awk 'NR==2 {print $4, $5, $6, $7}' | xargs -I{} date -j -f "%b %d %H:%M" "{}" "+%s" 2>/dev/null)
 # Get current time in seconds since epoch
 CURRENT_EPOCH=$(date +%s)
 # Calculate the difference
 SECONDS_ELAPSED=$((CURRENT_EPOCH - LAST_LOGIN_EPOCH))
-HOURS=$((SECONDS_ELAPSED / 3600))
 # Show message of the day if more than 8 hours have passed since last login
-if [[ $HOURS -ge 8 ]]; then
+if [[ SECONDS_ELAPSED -ge $THRESHOLD ]]; then
     RED=$(printf '\033[38;5;196m')
     ORANGE=$(printf '\033[38;5;202m')
     YELLOW=$(printf '\033[38;5;226m')
