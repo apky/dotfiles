@@ -8,7 +8,7 @@ go_version="1.24.2"
 brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep antigen"
 brew_casks="brave-browser google-chrome font-meslo-for-powerlevel10k iterm2 visual-studio-code"
 brew_additional_casks="anki netnewswire nordvpn signal 1password zoom adobe-acrobat-reader"
-brew_dev_tools="kubernetes-cli postgresql@15 restish poetry pipx yarn jq golang-migrate"
+brew_dev_tools="kubernetes-cli postgresql@15 restish pipx yarn jq golang-migrate"
 brew_dev_tools_casks="slack openvpn-connect postman swiftbar notion google-cloud-sdk"
 # Change this array for preferred go packages
 go_packages=(
@@ -187,10 +187,11 @@ else
   echo
 fi
 
-if read -q "REPLY?Install openapi-python client? (Y/n): "; then
+if read -q "REPLY?Install openapi-python client and poetry using pipx? (Y/n): "; then
   echo "\ninstalling openapi-python-client"
   pipx ensurepath
   pipx install openapi-python-client --include-deps
+  pipx install poetry
 else
   echo
 fi

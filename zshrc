@@ -20,7 +20,7 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle alias-finder
 antigen bundle dotenv
-antigen bundle poetry
+# antigen bundle poetry # seems to be a bit broken
 antigen bundle kubectl
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
