@@ -12,6 +12,7 @@
     ~/.p10k.zsh: p10k.zsh
     ~/.gitconfig: gitconfig
     ~/.gitignore_global: gitignore_global
+    ~/.vimrc: vimrc
     ~/.macos: macos
   
 - create:
