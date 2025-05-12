@@ -1,0 +1,21 @@
+# .zsh_plugins.txt
+
+# oh-my-zsh
+getantidote/use-omz        # handle OMZ dependencies
+ohmyzsh/ohmyzsh path:lib   # load OMZ's library
+
+# load oh-my-zsh plugins
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/alias-finder
+ohmyzsh/ohmyzsh path:plugins/dotenv
+ohmyzsh/ohmyzsh path:plugins/kubectl
+zsh-users/zsh-autosuggestions kind:fpath path:src
+zsh-users/zsh-completions kind:defer
+
+# popular fish-like plugins
+zdharma-continuum/fast-syntax-highlighting kind:defer
+
+# prompts:
+#   with prompt plugins, remember to add this to your .zshrc:
+#   `autoload -Uz promptinit && promptinit && prompt powerlevel10k`
+romkatv/powerlevel10k kind:fpath

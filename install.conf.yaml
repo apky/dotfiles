@@ -8,6 +8,7 @@
 - link:
     ~/.zshrc: zshrc
     ~/.zprofile: zprofile
+    ~/.zsh_plugins.txt: zsh_plugins.txt
     ~/.motd.zsh: motd.zsh
     ~/.p10k.zsh: p10k.zsh
     ~/.gitconfig: gitconfig
