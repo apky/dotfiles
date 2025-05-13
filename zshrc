@@ -3,6 +3,9 @@
 # Display Message of the Day (MOTD)
 [[ ! -f ~/.motd.zsh ]] || source ~/.motd.zsh
 
+# pipx installed binaries (poetry, openapi-python-client, etc.)
+export PATH="$PATH:/Users/alexpowell/.local/bin"
+
 # use antidote for plugin management
 if [[ -r "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh" ]]; then
   # use friendly names for cache directories
@@ -12,9 +15,6 @@ if [[ -r "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh" ]]; then
 
   # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
   antidote load
-
-  # load the output of 'antidote load'
-  source ~/.zsh_plugins.zsh
 
   # load powerlevel10k prompt plugin
   autoload -Uz promptinit && promptinit && prompt powerlevel10k
@@ -28,9 +28,6 @@ source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 
 # "n" - interactively manage Node.js versions
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
-
-# pipx 
-export PATH="$PATH:/Users/alexpowell/.local/bin"
 
 #### END User configuration ####
 
