@@ -9,11 +9,18 @@ ohmyzsh/ohmyzsh path:plugins/git
 ohmyzsh/ohmyzsh path:plugins/alias-finder
 ohmyzsh/ohmyzsh path:plugins/dotenv
 ohmyzsh/ohmyzsh path:plugins/kubectl
+ohmyzsh/ohmyzsh path:plugins/poetry
 zsh-users/zsh-autosuggestions kind:fpath path:src
 zsh-users/zsh-completions kind:defer
 
 # popular fish-like plugins
 zdharma-continuum/fast-syntax-highlighting kind:defer
+
+# local completions
+~/dotfiles/completions kind:fpath
+
+# local aliases
+~/.aliases
 
 # prompts:
 #   with prompt plugins, remember to add this to your .zshrc:

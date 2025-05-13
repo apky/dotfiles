@@ -32,9 +32,6 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 # pipx 
 export PATH="$PATH:/Users/alexpowell/.local/bin"
 
-# aliases
-source ~/dotfiles/oh-my-zsh/custom/alias.zsh
-
 #### END User configuration ####
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
