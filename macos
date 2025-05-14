@@ -82,7 +82,7 @@ fi
 
 source ~/.zshrc
 
-if go version &>/dev/null; then
+if type go &>/dev/null; then
     echo "Detected that Go is installed"
 else
     echo "Go is NOT installed or configured properly. Exiting..."
@@ -100,7 +100,7 @@ fi
 
 echo
 
-if brew --version &>/dev/null; then
+if type brew &>/dev/null; then
     echo "\nDetected that Homebrew is installed"
 else
     echo "\nBrew is NOT installed or configured properly. Exiting..."
@@ -140,7 +140,7 @@ else
   echo
 fi
 
-if gcloud --version &>/dev/null; then
+if type gcloud &>/dev/null; then
     echo "Detected that gcloud is installed"
     if read -q "REPLY?Install gcloud components ${gcloud_components}? (Y/n): "; then
       echo
@@ -165,7 +165,7 @@ else
   echo
 fi
 
-if node --version &>/dev/null && npm --version &>/dev/null; then
+if type node &>/dev/null && type npm &>/dev/null; then
     echo "Detected that node and npm are installed properly"
     if read -q "REPLY?Install global npm packages ${npm_global_packages}? (Y/n): "; then
       echo
