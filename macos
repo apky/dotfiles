@@ -50,22 +50,23 @@ todo="TODO:
 
 echo "Hello $(whoami)! Let's get you set up."
 
-if read -q "REPLY?Do you want to install xcode command line tools? (required for most things) (Y/n): "; then
-  echo "\ninstalling xcode command line tools"
-  echo "Continue the installation via the launcher app"
-  xcode-select --install
-  read -q "REPLY?Have you completed the xcode installation via launcher? (Y/n): " || { echo; echo "Operation cancelled."; exit 1; }
-else
-  echo "\nOK, skipping xcode command line tools installation."
-fi
-
-if xcode-select -p &>/dev/null; then
+if type xcode-select &>/dev/null; then
     echo "Detected that Xcode Command Line Tools are installed"
 else
+    if read -q "REPLY?Do you want to install xcode command line tools? (required for most things) (Y/n): "; then
+      echo "\ninstalling xcode command line tools"
+      echo "Continue the installation via the launcher app"
+      xcode-select --install
+      read -q "REPLY?Have you completed the xcode installation via launcher? (Y/n): " || { echo; echo "Operation cancelled."; exit 1; }
+    else
+      echo "\nOK, skipping xcode command line tools installation."
+    fi
+fi
+
+if ! type xcode-select &>/dev/null; then
     echo "Xcode Command Line Tools are NOT installed. Exiting..."
     exit 1
 fi
-
 
 if read -q "REPLY?Do you want to install go${go_version} (Y/n): "; then
   echo "\ninstalling go"
