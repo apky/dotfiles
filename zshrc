@@ -3,9 +3,6 @@
 # Display Message of the Day (MOTD)
 [[ ! -f ~/.motd.zsh ]] || source ~/.motd.zsh
 
-# pipx installed binaries (poetry, openapi-python-client, etc.)
-export PATH="$PATH:$HOME/.local/bin"
-
 # use antidote for plugin management
 if [[ -r "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh" ]]; then
   # use friendly names for cache directories

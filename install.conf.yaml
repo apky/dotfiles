@@ -6,6 +6,7 @@
 - clean: ['~', '~/.antigen/bundles/robbyrussell/oh-my-zsh/custom']
 
 - link:
+    ~/.zshenv: zshenv
     ~/.zshrc: zshrc
     ~/.zprofile: zprofile
     ~/.zsh_plugins.txt: zsh_plugins.txt
