@@ -6,10 +6,12 @@ ohmyzsh/ohmyzsh path:lib   # load OMZ's library
 
 # load oh-my-zsh plugins
 ohmyzsh/ohmyzsh path:plugins/git
-ohmyzsh/ohmyzsh path:plugins/alias-finder
 ohmyzsh/ohmyzsh path:plugins/dotenv
 ohmyzsh/ohmyzsh path:plugins/kubectl
 ohmyzsh/ohmyzsh path:plugins/poetry
+
+# other plugins
+akash329d/zsh-alias-finder
 
 # completions
 zsh-users/zsh-completions kind:fpath path:src
