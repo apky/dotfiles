@@ -1,3 +1,17 @@
+setopt auto_cd
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+# List directory contents
+alias ls='ls --color=auto'
+alias lsa='ls -lah'
+alias l='ls -lah'
+alias ll='ls -lh'
+alias la='ls -lAh'
+
 alias restish="noglob restish"
 alias postgres="LC_ALL='C' /opt/homebrew/opt/postgresql@15/bin/postgres -p 5432 -D /opt/homebrew/var/postgresql@15 >>~/pgsql/psql_logfile 2>&1"
 alias psql="/opt/homebrew/opt/postgresql@15/bin/psql"

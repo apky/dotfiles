@@ -8,6 +8,11 @@ if [[ -r "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh" ]]; then
   # use friendly names for cache directories
   zstyle ':antidote:bundle' use-friendly-names 'yes'
 
+  # Available completion styles: gremlin, ohmy, prez, zshzoo
+  # You can add your own too. To see all available completion styles
+  # run 'compstyle -l'
+  zstyle ':plugin:ez-compinit' 'compstyle' 'zshzoo'
+
   source "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh"
 
   # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
@@ -17,7 +22,17 @@ if [[ -r "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh" ]]; then
   autoload -Uz promptinit && promptinit && prompt powerlevel10k
 fi
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #### BEGIN User configuration ####
+
+# Default coloring for BSD-based ls
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 # kubectl settings
 source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
@@ -25,6 +40,10 @@ source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 
 # "n" - interactively manage Node.js versions
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+# variables for zpm-zsh/autoenv
+export AUTOENV_IN_FILE=".env"
+export AUTOENV_OUT_FILE=".env.out"
 
 #### END User configuration ####
 
