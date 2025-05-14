@@ -17,6 +17,7 @@ romkatv/powerlevel10k kind:fpath
 
 # popular fish-like plugins
 zdharma-continuum/fast-syntax-highlighting  # Syntax highlighting
+zdharma-continuum/history-search-multi-word # History Search Multiword for Ctrl-R
 zsh-users/zsh-autosuggestions               # Auto-suggestions
 zsh-users/zsh-history-substring-search      # Up/Down to search history
 
