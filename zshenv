@@ -5,6 +5,11 @@
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
+# This is required for poetry completion plugin to work.
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+# Add custom completion directory
+fpath=($ZSH_CACHE_DIR/completions $fpath)
+
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath
 
