@@ -25,7 +25,7 @@ CURRENT_EPOCH=$(date +%s)
 # Calculate the difference
 SECONDS_ELAPSED=$((CURRENT_EPOCH - LAST_LOGIN_EPOCH))
 # Show message of the day if more than 8 hours have passed since last login
-if [[ SECONDS_ELAPSED -ge $THRESHOLD ]]; then
+if [[ $SECONDS_ELAPSED -ge $THRESHOLD ]]; then
     RED=$(printf '\033[38;5;196m')
     ORANGE=$(printf '\033[38;5;202m')
     YELLOW=$(printf '\033[38;5;226m')
