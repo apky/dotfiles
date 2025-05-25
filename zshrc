@@ -45,6 +45,11 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 export AUTOENV_IN_FILE=".env"
 export AUTOENV_OUT_FILE=".env.out"
 
+# zsh directory stack
+setopt AUTO_PUSHD           # Push the current directory visited on the stack
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack
+setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd
+
 #### END User configuration ####
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
