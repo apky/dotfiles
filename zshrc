@@ -35,8 +35,8 @@ fi
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 # gcloud settings
-source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+[[ ! -f "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc" ]] || source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+[[ ! -f "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc" ]] || source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 
 # "n" - interactively manage Node.js versions
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
