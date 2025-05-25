@@ -20,3 +20,6 @@ alias core="kubectl -n core-services"
 # Directory stack
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
+
+# fun
+alias tetris="autoload -Uz tetriscurses; tetriscurses"
