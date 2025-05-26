@@ -3,6 +3,7 @@
 # completions
 mattmc3/ez-compinit         # this needs to be first to manage compinit weirdness
 zsh-users/zsh-completions kind:fpath path:src
+aloxaf/fzf-tab 
 
 # plugins
 akash329d/zsh-alias-finder
@@ -20,7 +21,8 @@ romkatv/powerlevel10k kind:fpath
 zdharma-continuum/fast-syntax-highlighting  # Syntax highlighting
 zdharma-continuum/history-search-multi-word # History Search Multiword for Ctrl-R
 zsh-users/zsh-autosuggestions               # Auto-suggestions
-zsh-users/zsh-history-substring-search      # Up/Down to search history
+# no need to use zsh-history-substring-search AND fzf
+# zsh-users/zsh-history-substring-search      # Up/Down to search history
 
 # local aliases
 ~/.aliases

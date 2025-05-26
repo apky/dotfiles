@@ -5,7 +5,7 @@ git_email="alex@meibel.ai"
 # Change this variable to your preferred go version
 go_version="1.24.2"
 # Change these variables to your preferred brew packages
-brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep antidote"
+brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep fzf antidote"
 brew_casks="brave-browser google-chrome font-meslo-for-powerlevel10k iterm2 visual-studio-code"
 brew_additional_casks="anki netnewswire nordvpn signal 1password zoom adobe-acrobat-reader"
 brew_dev_tools="kubernetes-cli postgresql@15 restish pipx yarn jq golang-migrate"
@@ -26,6 +26,7 @@ gcloud_components=(
 dotfiles_repo="git@github.com:apky/dotfiles.git"
 # These are the dotfiles that will be backed up before being replaced
 dotfiles_to_backup=(
+  .zshenv
   .zshrc
   .zprofile
 )
@@ -269,18 +270,21 @@ else
   echo "\nOK, skipping system preference modifications.\n"
 fi
 
-if read -q "REPLY?Do you want to install dotfiles from ${dotfiles_repo} (Y/n): "; then
-  # backup existing dotfiles (if they exist)
-  for dotfile in "${dotfiles_to_backup[@]}"; do
-    echo "copying ${dotfile} to ${dotfile}.pre-dotbot"
-    [[ ! -f ~/${dotfile} ]] || cp ~/${dotfile} ~/${dotfile}.pre-dotbot
-  done
-  echo "cloning ${dotfiles_repo}"
-  cd ~
-  git clone ${dotfiles_repo} --recursive
-  echo "installing dotfiles\n"
-  cd dotfiles && ./install
-  echo "dotfiles installed\n\n"
+if type git &>/dev/null; then
+  if read -q "REPLY?Do you want to install dotfiles from ${dotfiles_repo} (Y/n): "; then
+    # backup existing dotfiles (if they exist)
+    for dotfile in "${dotfiles_to_backup[@]}"; do
+      echo "copying ${dotfile} to ${dotfile}.pre-dotbot"
+      [[ ! -f ~/${dotfile} ]] || cp ~/${dotfile} ~/${dotfile}.pre-dotbot
+    done
+    echo "cloning ${dotfiles_repo}"
+    cd ~
+    git clone ${dotfiles_repo} --recursive
+    echo "installing dotfiles\n"
+    cd dotfiles && ./install && echo "dotfiles installed\n\n"
+  fi
+else
+  echo "\ngit not detected. Ensure git is in PATH to install dotfiles.\n"
 fi
 
 echo "\nDone. Note that some of these changes require a logout/restart to take effect."
