@@ -17,6 +17,7 @@
     ~/.vimrc: vimrc
     ~/.aliases: aliases
     ~/.macos: macos
+    ~/.config/starship.toml: starship.toml
   
 - create:
     - ~/code    # where I keep my projects

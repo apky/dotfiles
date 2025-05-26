@@ -15,14 +15,13 @@ belak/zsh-utils path:history
 # prompts:
 #   with prompt plugins, remember to add this to your .zshrc:
 #   `autoload -Uz promptinit && promptinit && prompt powerlevel10k`
-romkatv/powerlevel10k kind:fpath
+# romkatv/powerlevel10k kind:fpath
 
 # popular fish-like plugins
 zdharma-continuum/fast-syntax-highlighting  # Syntax highlighting
 zdharma-continuum/history-search-multi-word # History Search Multiword for Ctrl-R
 zsh-users/zsh-autosuggestions               # Auto-suggestions
-# no need to use zsh-history-substring-search AND fzf
-# zsh-users/zsh-history-substring-search      # Up/Down to search history
+zsh-users/zsh-history-substring-search      # Up/Down to search history
 
 # local aliases
 ~/.aliases

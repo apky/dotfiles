@@ -5,7 +5,7 @@ git_email="alex@meibel.ai"
 # Change this variable to your preferred go version
 go_version="1.24.2"
 # Change these variables to your preferred brew packages
-brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep fzf antidote"
+brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep fzf starship antidote"
 brew_casks="brave-browser google-chrome font-meslo-for-powerlevel10k iterm2 visual-studio-code"
 brew_additional_casks="anki netnewswire nordvpn signal 1password zoom adobe-acrobat-reader"
 brew_dev_tools="kubernetes-cli postgresql@15 restish pipx yarn jq golang-migrate"
