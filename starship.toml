@@ -24,7 +24,7 @@ $golang\
 $php\
 $kubernetes\
 ${env_var.VIRTUAL_ENV_PROMPT}\
-[](fg:#212736 bg:#1d2230)\
+[](fg:#212736)\
 $fill\
 $cmd_duration\
 $time\
