@@ -99,7 +99,7 @@ symbol = ""
 style = "fg:#769ff0 bg:#212736"
 python_binary = ['python3', 'python']
 detect_files = ['poetry.lock', '.python-version', 'Pipfile', '__init__.py', 'pyproject.toml', 'requirements.txt', 'setup.py', 'tox.ini']
-format = '[ ($symbol $virtualenv)]($style)'
+format = '[( $symbol $virtualenv)]($style)'
 
 [cmd_duration]
 min_time = 500
