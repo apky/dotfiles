@@ -23,4 +23,4 @@ zsh-users/zsh-autosuggestions               # Auto-suggestions
 zsh-users/zsh-history-substring-search      # Up/Down to search history
 
 # local aliases
-~/.config/zsh/.aliases
+${ZDOTDIR:-~}/.aliases
