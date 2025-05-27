@@ -49,4 +49,4 @@ source <(fzf --zsh)
 #### END User configuration ####
 
 # starship prompt
-type starship &>/dev/null && eval "$(starship init zsh)"
+! type starship &>/dev/null || eval "$(starship init zsh)"
