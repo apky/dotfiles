@@ -1,7 +1,7 @@
 # .zshrc is for interactive shells. executes after .zprofile
 
 # Display Message of the Day (MOTD)
-[[ ! -f ~/.motd.zsh ]] || source ~/.motd.zsh
+[[ ! -f ${ZDOTDIR:-~}/.motd.zsh ]] || source ${ZDOTDIR:-~}/.motd.zsh
 
 # use antidote for plugin management
 if [[ -r "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh" ]]; then

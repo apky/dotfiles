@@ -3,24 +3,48 @@
       relink: true
       force: true   # overwrite existing files. CAREFUL!
 
-- clean: ['~', '~/.antigen/bundles/robbyrussell/oh-my-zsh/custom']
+- clean:
+    ~/:
+      force: false
+    ~/.config:
+      recursive: true
 
 - link:
     ~/.zshenv: zshenv
-    ~/.zshrc: zshrc
-    ~/.zprofile: zprofile
-    ~/.zsh_plugins.txt: zsh_plugins.txt
-    ~/.motd.zsh: motd.zsh
-    ~/.gitconfig: gitconfig
-    ~/.gitignore_global: gitignore_global
-    ~/.vimrc: vimrc
-    ~/.aliases: aliases
     ~/.macos: macos
-    ~/.config/starship.toml: starship.toml
-  
+    ~/.config/zsh/.zshrc: 
+        create: true
+        path: zshrc
+    ~/.config/zsh/.zprofile:
+        create: true
+        path: zprofile
+    ~/.config/zsh/.zsh_plugins.txt:
+        create: true
+        path: zsh_plugins.txt
+    ~/.config/zsh/.aliases:
+        create: true
+        path: aliases
+    ~/.config/zsh/.motd.zsh:
+        create: true
+        path: motd.zsh
+    ~/.config/git/config:
+        create: true
+        path: gitconfig
+    ~/.config/git/ignore_global:
+        create: true
+        path: gitignore_global
+    ~/.config/vim/vimrc:
+        create: true
+        path: vimrc
+    ~/.config/starship.toml:
+        create: true
+        path: starship.toml
+
 - create:
-    - ~/code    # where I keep my projects
-    - ~/pgsql   # where I keep my PostgreSQL log files
+    ~/code:         # where I keep my projects         
+        mode: 0755
+    ~/pgsql:        # where I keep my PostgreSQL log files  
+        mode: 0755
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

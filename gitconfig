@@ -4,7 +4,7 @@
 	email = 74688818+apky@users.noreply.github.com
 [core]
 	editor = code --wait
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/ignore_global
 	autocrlf = input
 [init]
 	defaultBranch = main
