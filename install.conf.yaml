@@ -43,7 +43,7 @@
 - create:
     ~/code:         # where I keep my projects         
         mode: 0755
-    ~/pgsql:        # where I keep my PostgreSQL log files  
+    ~/.cache/pgsql:        # where I keep my PostgreSQL log files  
         mode: 0755
 
 - shell:
