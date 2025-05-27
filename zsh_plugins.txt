@@ -15,7 +15,6 @@ belak/zsh-utils path:history
 # prompts:
 #   with prompt plugins, remember to add this to your .zshrc:
 #   `autoload -Uz promptinit && promptinit && prompt powerlevel10k`
-# romkatv/powerlevel10k kind:fpath
 
 # popular fish-like plugins
 zdharma-continuum/fast-syntax-highlighting  # Syntax highlighting

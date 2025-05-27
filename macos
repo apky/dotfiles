@@ -54,7 +54,7 @@ echo "Hello $(whoami)! Let's get you set up."
 if type xcode-select &>/dev/null; then
     echo "Detected that Xcode Command Line Tools are installed"
 else
-    if read -q "REPLY?Do you want to install xcode command line tools? (required for most things) (Y/n): "; then
+    if read -q "REPLY?Install xcode command line tools? (required for most things) (Y/n): "; then
       echo "\ninstalling xcode command line tools"
       echo "Continue the installation via the launcher app"
       xcode-select --install
@@ -69,7 +69,7 @@ if ! type xcode-select &>/dev/null; then
     exit 1
 fi
 
-if read -q "REPLY?Do you want to install go${go_version} (Y/n): "; then
+if read -q "REPLY?Install go${go_version} (Y/n): "; then
   echo "\ninstalling go"
   curl -L -o go${go_version}.darwin-arm64.pkg "https://go.dev/dl/go${go_version}.darwin-arm64.pkg"
   open go${go_version}.darwin-arm64.pkg
@@ -91,7 +91,7 @@ else
     exit 1
 fi
 
-if read -q "REPLY?Do you want to install brew (Y/n): "; then
+if read -q "REPLY?Install brew (Y/n): "; then
     echo "\ninstalling homebrew"
     # install homebrew https://brew.sh
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -198,7 +198,7 @@ else
   echo
 fi
 
-if read -q "REPLY?Do you want to generate SSH key for GitHub for ${git_email}? (Y/n): "; then
+if read -q "REPLY?Generate SSH key for GitHub for ${git_email}? (Y/n): "; then
   echo "\nGenerating a new SSH key for GitHub"
   ssh-keygen -t ed25519 -C "${git_email}" -f ~/.ssh/id_ed25519
   eval "$(ssh-agent -s)"
@@ -271,7 +271,7 @@ else
 fi
 
 if type git &>/dev/null; then
-  if read -q "REPLY?Do you want to install dotfiles from ${dotfiles_repo} (Y/n): "; then
+  if read -q "REPLY?Install dotfiles from ${dotfiles_repo} (Y/n): "; then
     # backup existing dotfiles (if they exist)
     for dotfile in "${dotfiles_to_backup[@]}"; do
       echo "copying ${dotfile} to ${dotfile}.pre-dotbot"
@@ -285,6 +285,15 @@ if type git &>/dev/null; then
   fi
 else
   echo "\ngit not detected. Ensure git is in PATH to install dotfiles.\n"
+fi
+
+if type poetry &>/dev/null; then
+  echo
+  if read -q "REPLY?Do you want poetry virtual environments to be stored in the project directory? (Y/n): "; then
+    poetry config virtualenvs.in-project true
+  fi
+  else
+    echo "\npoetry not detected.\n"
 fi
 
 echo "\nDone. Note that some of these changes require a logout/restart to take effect."

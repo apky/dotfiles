@@ -3,13 +3,6 @@
 # Display Message of the Day (MOTD)
 [[ ! -f ~/.motd.zsh ]] || source ~/.motd.zsh
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
 # use antidote for plugin management
 if [[ -r "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh" ]]; then
   # use friendly names for cache directories
@@ -55,8 +48,5 @@ source <(fzf --zsh)
 
 #### END User configuration ####
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-#starship prompt
-eval "$(starship init zsh)"
+# starship prompt
+! type starship &>/dev/null || eval "$(starship init zsh)"

@@ -21,15 +21,15 @@ $git_status\
 $nodejs\
 $rust\
 $golang\
-$php\
 $kubernetes\
-${env_var.VIRTUAL_ENV_PROMPT}\
 [](fg:#212736)\
 $fill\
 $cmd_duration\
 $time\
 [ ](fg:#1d2230)\
 \n$character"""
+
+right_format = """$python"""
 
 [fill]
 symbol = " "
@@ -93,20 +93,18 @@ symbol = "☸"
 style = "bg:#212736"
 format = '[ ($symbol $context) ]($style)'
 
-# this is used to display the poetry virtual environment.
-# it's a rough hack, and unfortunately the prompt doesn't go
-# away until VIRTUAL_ENV_PROMP is unset
-[env_var.VIRTUAL_ENV_PROMPT]
-variable = 'VIRTUAL_ENV_PROMPT'
+[python]
 disabled = false
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($env_value) ](fg:#769ff0 bg:#212736)]($style)'
+style = "fg:#769ff0 bg:#212736"
+python_binary = ['python3', 'python']
+detect_files = ['poetry.lock', '.python-version', 'Pipfile', '__init__.py', 'pyproject.toml', 'requirements.txt', 'setup.py', 'tox.ini']
+format = '[ ($symbol $virtualenv)]($style)'
 
 [cmd_duration]
 min_time = 500
 style = "bg:#1d2230 fg:bold yellow"
-format = '[$duration]($style)'
+format = '[󰦖 $duration]($style)'
 
 [time]
 disabled = false
