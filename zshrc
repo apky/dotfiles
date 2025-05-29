@@ -38,6 +38,9 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 export AUTOENV_IN_FILE=".env"
 export AUTOENV_OUT_FILE=".env.out"
 
+# poetry config
+export POETRY_VIRTUALENVS_IN_PROJECT=true # store virtual environments in project folder
+
 # zsh directory stack
 setopt AUTO_PUSHD           # Push the current directory visited on the stack
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack

@@ -287,15 +287,6 @@ else
   echo "\ngit not detected. Ensure git is in PATH to install dotfiles.\n"
 fi
 
-if type poetry &>/dev/null; then
-  echo
-  if read -q "REPLY?Do you want poetry virtual environments to be stored in the project directory? (Y/n): "; then
-    poetry config virtualenvs.in-project true
-  fi
-  else
-    echo "\npoetry not detected.\n"
-fi
-
 echo "\nDone. Note that some of these changes require a logout/restart to take effect."
 
 printf $notes
