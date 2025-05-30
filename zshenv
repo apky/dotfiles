@@ -24,5 +24,6 @@ path=(
   $HOME/.local/{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/local/{,s}bin(N)
+  $HOME/go/bin(N)
   $path
 )
