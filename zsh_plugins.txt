@@ -9,7 +9,7 @@ aloxaf/fzf-tab
 akash329d/zsh-alias-finder
 mdumitru/git-aliases
 zpm-zsh/autoenv             # ensure $AUTOENV_IN_FILE and $AUTOENV_OUT_FILE are set
-fourdim/zsh-poetry          # ensure $ZSH_CACHE_DIR is set
+# fourdim/zsh-poetry          # ensure $ZSH_CACHE_DIR is set
 belak/zsh-utils path:history
 
 # prompts:
