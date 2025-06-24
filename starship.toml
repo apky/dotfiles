@@ -94,9 +94,9 @@ format = '[($symbol $context )]($style)'
 
 [[kubernetes.contexts]]
 # Warn me if I am in a production environment
-context_pattern = ".*prd.*"
+context_pattern = "gke_.*_(?P<cluster>[\\w-]*prd[\\w-]+)"
 style = "fg:red bg:#1d2230"
-context_alias = "PROD!!"
+context_alias = "!! $cluster !!"
 
 [[kubernetes.contexts]]
 # Using capture groups
