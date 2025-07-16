@@ -9,7 +9,7 @@ brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep 
 brew_casks="brave-browser google-chrome font-meslo-for-powerlevel10k font-jetbrains-mono iterm2 visual-studio-code"
 brew_additional_casks="anki netnewswire nordvpn signal 1password zoom adobe-acrobat-reader"
 brew_dev_tools="kubernetes-cli postgresql@15 restish pipx yarn jq golang-migrate"
-brew_dev_tools_casks="slack openvpn-connect postman swiftbar notion google-cloud-sdk"
+brew_dev_tools_casks="slack openvpn-connect postman swiftbar notion gcloud-cli"
 # Change this array for preferred go packages
 go_packages=(
   github.com/swaggo/swag/cmd/swag@latest
