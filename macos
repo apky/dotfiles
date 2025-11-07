@@ -3,13 +3,13 @@
 # Change this variable to your git email address
 git_email="alex@meibel.ai"
 # Change this variable to your preferred go version
-go_version="1.24.2"
+go_version="1.25.4"
 # Change these variables to your preferred brew packages
 brew_basic="git python@3.11 python@3.12 python@3.13 tlrc tree bat delta ripgrep fzf starship antidote font-hack-nerd-font"
 brew_casks="brave-browser google-chrome font-meslo-for-powerlevel10k font-jetbrains-mono iterm2 visual-studio-code"
 brew_additional_casks="anki netnewswire nordvpn signal 1password zoom adobe-acrobat-reader"
 brew_dev_tools="kubernetes-cli postgresql@15 restish pipx yarn jq golang-migrate"
-brew_dev_tools_casks="slack openvpn-connect postman swiftbar notion gcloud-cli"
+brew_dev_tools_casks="bitwarden slack openvpn-connect postman swiftbar notion gcloud-cli"
 # Change this array for preferred go packages
 go_packages=(
   github.com/swaggo/swag/cmd/swag@latest
@@ -109,11 +109,10 @@ else
     exit 1
 fi
 
-echo "brew installing basic stuff"
-
 if read -q "REPLY?Install basic brew stuff: ${brew_basic}? (Y/n): "; then
   # This block executes if the user answered Yes
   echo
+  echo "brew installing basic stuff"
   brew install ${brew_basic}
 else
   echo
