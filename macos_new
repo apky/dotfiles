@@ -1,0 +1,306 @@
+#!/usr/bin/env zsh
+
+###############################################################################
+# Configuration Variables
+###############################################################################
+
+GIT_EMAIL="alex@meibel.ai"
+GO_VERSION="1.25.5"
+DOTFILES_REPO="git@github.com:apky/dotfiles.git"
+
+BREW_BASIC="git python@3.11 python@3.12 python@3.13 python@3.14 tlrc tree bat delta ripgrep fzf starship antidote font-hack-nerd-font"
+BREW_CASKS="brave-browser google-chrome font-meslo-for-powerlevel10k font-jetbrains-mono iterm2 visual-studio-code"
+BREW_ADDITIONAL_CASKS="anki netnewswire nordvpn signal 1password zoom adobe-acrobat-reader"
+BREW_DEV_TOOLS="kubernetes-cli postgresql@15 restish pipx yarn jq golang-migrate temporal"
+BREW_DEV_TOOLS_CASKS="bitwarden slack openvpn-connect postman swiftbar notion gcloud-cli"
+
+GO_PACKAGES=(
+  github.com/swaggo/swag/cmd/swag@latest
+  github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
+)
+
+NPM_GLOBAL_PACKAGES="eslint fkill-cli typescript swagger2openapi"
+
+GCLOUD_COMPONENTS=(
+  gke-gcloud-auth-plugin 
+  cloud-sql-proxy
+)
+
+PYTHON_COMPONENTS=(
+    "openapi-python-client --include-deps"
+    poetry
+)
+
+DOTFILES_TO_BACKUP=(
+  .zshenv
+  .zshrc
+  .zprofile
+)
+
+###############################################################################
+# Helper Functions
+###############################################################################
+
+log_info() {
+  echo "\n[INFO] $1"
+}
+
+log_success() {
+  echo "[✓] $1"
+}
+
+log_error() {
+  echo "[✗] $1" >&2
+}
+
+prompt_and_run() {
+  local prompt="$1"
+  local action="$2"
+  
+  if read -q "REPLY?${prompt} (Y/n): "; then
+    echo
+    eval "$action"
+    return $?
+  else
+    echo
+    return 1
+  fi
+}
+
+check_command() {
+  if type "$1" &>/dev/null; then
+    log_success "$1 is installed"
+    return 0
+  else
+    log_error "$1 is NOT installed"
+    return 1
+  fi
+}
+
+require_command() {
+  if ! check_command "$1"; then
+    log_error "$1 is required but not found. Exiting..."
+    exit 1
+  fi
+}
+
+safe_source() {
+  [[ -f "$1" ]] && source "$1"
+}
+
+###############################################################################
+# Installation Functions
+###############################################################################
+
+install_xcode_tools() {
+  if check_command xcode-select; then
+    return 0
+  fi
+  
+  prompt_and_run "Install Xcode Command Line Tools? (required for most things)" \
+    "xcode-select --install && read -q 'REPLY?Completed installation? (Y/n): ' || exit 1"
+  
+  require_command xcode-select
+}
+
+install_go() {
+  local pkg_file="go${GO_VERSION}.darwin-arm64.pkg"
+  
+  prompt_and_run "Install go${GO_VERSION}" \
+    "curl -L -o ${pkg_file} 'https://go.dev/dl/${pkg_file}' && \
+     open ${pkg_file} && \
+     read -q 'REPLY?Completed installation? (Y/n): ' && \
+     rm ${pkg_file}" || return 0
+  
+  safe_source ~/.zshrc
+  require_command go
+}
+
+install_homebrew() {
+  if check_command brew; then
+    return 0
+  fi
+  
+  prompt_and_run "Install Homebrew" \
+    "/bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" && \
+     echo 'eval \"\$(/opt/homebrew/bin/brew shellenv)\"' >> ~/.zprofile && \
+     eval \"\$(/opt/homebrew/bin/brew shellenv)\""
+  
+  require_command brew
+}
+
+install_brew_packages() {
+  prompt_and_run "Install basic brew packages: ${BREW_BASIC}" \
+    "brew install ${BREW_BASIC}"
+  
+  prompt_and_run "Install brew casks: ${BREW_CASKS}" \
+    "brew install --cask ${BREW_CASKS}"
+  
+  prompt_and_run "Install additional casks: ${BREW_ADDITIONAL_CASKS}" \
+    "brew install --cask ${BREW_ADDITIONAL_CASKS}"
+  
+  prompt_and_run "Install dev tools: ${BREW_DEV_TOOLS} ${BREW_DEV_TOOLS_CASKS}" \
+    "brew install ${BREW_DEV_TOOLS} && brew install --cask ${BREW_DEV_TOOLS_CASKS}"
+}
+
+install_gcloud_components() {
+  if ! check_command gcloud; then
+    log_info "gcloud not installed, skipping components"
+    return 0
+  fi
+  
+  if prompt_and_run "Install gcloud components: ${GCLOUD_COMPONENTS[*]}" ""; then
+    for component in "${GCLOUD_COMPONENTS[@]}"; do
+      log_info "Installing ${component}"
+      gcloud components install ${component}
+    done
+  fi
+}
+
+install_node() {
+  prompt_and_run "Install n (Node.js manager)" \
+    "curl -L https://git.io/n-install | bash && safe_source ~/.zshrc" || return 0
+  
+  if check_command node && check_command npm; then
+    log_info "node: $(node --version), npm: $(npm --version)"
+    prompt_and_run "Install global npm packages: ${NPM_GLOBAL_PACKAGES}" \
+      "npm install --global ${NPM_GLOBAL_PACKAGES}"
+  fi
+}
+
+install_go_packages() {
+  if ! prompt_and_run "Install global go packages: ${GO_PACKAGES[*]}" ""; then
+    return 0
+  fi
+  
+  for package in "${GO_PACKAGES[@]}"; do
+    log_info "Installing ${package}"
+    go install ${package}
+  done
+}
+
+install_python_tools() {
+  if prompt_and_run "Install python components: ${PYTHON_COMPONENTS[*]}" ""; then
+    for component in "${PYTHON_COMPONENTS[@]}"; do
+      log_info "Installing ${component}"
+      pipx ensurepath && pipx install ${component}
+    done
+  fi
+}
+
+generate_ssh_key() {
+  prompt_and_run "Generate SSH key for GitHub (${GIT_EMAIL})" \
+    "ssh-keygen -t ed25519 -C '${GIT_EMAIL}' -f ~/.ssh/id_ed25519 && \
+     eval \"\$(ssh-agent -s)\" && \
+     touch ~/.ssh/config && \
+     echo 'Host github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/id_ed25519' > ~/.ssh/config && \
+     ssh-add -K ~/.ssh/id_ed25519 && \
+     log_info 'Run: pbcopy < ~/.ssh/id_ed25519.pub and paste into GitHub'"
+}
+
+configure_macos_preferences() {
+  if ! prompt_and_run "Configure macOS preferences (key repeat, hot corners, etc.)" ""; then
+    return 0
+  fi
+  
+  # Keyboard repeat rate. Use 1 and 10 for blazingly fast
+  defaults write NSGlobalDomain KeyRepeat -int 2
+  defaults write NSGlobalDomain InitialKeyRepeat -int 15
+  
+  # Finder default location
+  defaults write com.apple.finder NewWindowTarget -string "PfLo"
+  defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Documents/"
+  
+  # Hot corners (⌘ + corner)
+  # Possible values:
+  #  0: no-op
+  #  2: Mission Control
+  #  3: Show application windows
+  #  4: Desktop
+  #  5: Start screen saver
+  #  6: Disable screen saver
+  #  7: Dashboard
+  # 10: Put display to sleep
+  # 11: Launchpad
+  # 12: Notification Center
+  # 1048576 is ⌘ I think
+  defaults write com.apple.dock wvous-tl-corner -int 3       # Top-left: App windows
+  defaults write com.apple.dock wvous-tl-modifier -int 1048576
+  defaults write com.apple.dock wvous-tr-corner -int 12      # Top-right: Notification Center
+  defaults write com.apple.dock wvous-tr-modifier -int 1048576
+  defaults write com.apple.dock wvous-bl-corner -int 4       # Bottom-left: Desktop
+  defaults write com.apple.dock wvous-bl-modifier -int 1048576
+  defaults write com.apple.dock wvous-br-corner -int 4       # Bottom-right: Desktop
+  defaults write com.apple.dock wvous-br-modifier -int 1048576
+  
+  # Activity Monitor
+  # Show the main window when launching Activity Monitor
+  defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
+  # Show all processes in Activity Monitor
+  defaults write com.apple.ActivityMonitor ShowCategory -int 0
+  # Sort Activity Monitor results by CPU usage
+  defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
+  defaults write com.apple.ActivityMonitor SortDirection -int 0
+  
+  log_success "macOS preferences configured"
+}
+
+install_dotfiles() {
+  if ! check_command git; then
+    log_info "git not detected, skipping dotfiles"
+    return 0
+  fi
+  
+  if ! prompt_and_run "Install dotfiles from ${DOTFILES_REPO}" ""; then
+    return 0
+  fi
+  
+  # Backup existing dotfiles
+  for dotfile in "${DOTFILES_TO_BACKUP[@]}"; do
+    if [[ -f ~/${dotfile} ]]; then
+      log_info "Backing up ${dotfile} to ${dotfile}.pre-dotbot"
+      cp ~/${dotfile} ~/${dotfile}.pre-dotbot
+    fi
+  done
+  
+  # Clone and install
+  cd ~
+  git clone ${DOTFILES_REPO} --recursive
+  cd dotfiles && ./install
+  log_success "Dotfiles installed"
+}
+
+###############################################################################
+# Main Script
+###############################################################################
+
+main() {
+  log_info "Hello $(whoami)! Let's set up your Mac."
+  
+  install_xcode_tools
+  install_go
+  install_homebrew
+  install_brew_packages
+  install_gcloud_components
+  install_node
+  install_go_packages
+  install_python_tools
+  generate_ssh_key
+  configure_macos_preferences
+  install_dotfiles
+  
+  log_success "Setup complete! Some changes require logout/restart."
+  
+  echo "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "NOTES:"
+  echo "  • postgres: /opt/homebrew/opt/postgresql@15/bin/postgres"
+  echo "  • Consider creating an alias for postgres"
+  echo "\nTODO:"
+  echo "  • Install personal apps"
+  echo "  • Restart Terminal"
+  echo "  • Verify dotfiles are working correctly"
+  echo "  • Login to all services and applications"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+}
+
+main "$@"
