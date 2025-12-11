@@ -3,7 +3,7 @@
 # Change this variable to your git email address
 git_email="alex@meibel.ai"
 # Change this variable to your preferred go version
-go_version="1.25.4"
+go_version="1.25.5"
 # Change these variables to your preferred brew packages
 brew_basic="git python@3.11 python@3.12 python@3.13 python@3.14 tlrc tree bat delta ripgrep fzf starship antidote font-hack-nerd-font"
 brew_casks="brave-browser google-chrome font-meslo-for-powerlevel10k font-jetbrains-mono iterm2 visual-studio-code"
