@@ -1,0 +1,54 @@
+{
+    "editor.minimap.enabled": false,
+    "editor.fontFamily": "'JetBrains Mono', Menlo, Monaco, 'Courier New', monospace, 'Hack Nerd Font'",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 14,
+    "editor.letterSpacing": 0.2,
+    "editor.fontVariations": false,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "golang.go"
+    },
+    "gopls": {
+        "ui.semanticTokens": true,
+    },
+    "go.testFlags": ["-v"],
+    "diffEditor.ignoreTrimWhitespace": true,
+    // Catppuccin Theme Recommended Settings
+    "editor.semanticHighlighting.enabled": true, // we try to make semantic highlighting look good
+    "terminal.integrated.minimumContrastRatio": 1, // prevent VSCode from modifying the terminal colors
+    "window.titleBarStyle": "custom", // make the window's titlebar use the workbench colors
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.iconTheme": "catppuccin-mocha",
+
+    // Catppucin Icons Recommended Settings
+    "catppuccin-icons.hidesExplorerArrows": false, // Set to `true` to disable folding arrows next to folder icons.
+    "catppuccin-icons.specificFolders": true,   // Set to `false` to only use the default folder icon.
+    "catppuccin-icons.monochrome": false, // Set to `true` to only use the `text` fill color for all icons.
+    
+    "terminal.integrated.fontFamily": "'MesloLGS NF'",
+    "terminal.integrated.fontLigatures.enabled": true,
+    "database-client.autoSync": true,
+    "database-client.telemetry.usesOnlineServices": false,
+    "window.zoomLevel": 0.5,
+    "workbench.activityBar.location": "top",
+    "workbench.settings.applyToAllProfiles": [],
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "redhat.telemetry.enabled": false,
+    "go.toolsManagement.autoUpdate": true,
+    "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
+    "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
+    "git.confirmSync": false,
+    "git.replaceTagsWhenPull": true,
+}

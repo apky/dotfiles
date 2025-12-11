@@ -39,6 +39,9 @@
     ~/.config/starship.toml:
         create: true
         path: starship.toml
+    "~/Library/Application Support/Code/User/settings.json":
+        create: false
+        path: settings.json
 
 - create:
     ~/code:         # where I keep my projects         
