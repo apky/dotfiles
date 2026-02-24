@@ -106,6 +106,13 @@ context_alias = "!! $cluster !!"
 context_pattern = "gke_.*_(?P<cluster>[\\w-]+)"
 context_alias = "$cluster"
 
+[[kubernetes.contexts]]
+# AWS EKS context pattern
+# Matches EKS ARN format (arn:aws:eks:region:account-id:cluster/cluster-name) 
+# and extracts just the cluster name
+context_pattern = "arn:aws:eks:[\\w-]+:\\d+:cluster/(?P<cluster>[\\w-]+)"
+context_alias = "$cluster"
+
 [python]
 disabled = false
 symbol = ""
