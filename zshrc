@@ -49,6 +49,9 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 # Set up fzf key bindings and fuzzy completion
 ! type fzf &>/dev/null || source <(fzf --zsh)
 
+# custom environment variables for work (not saved to dotfiles)
+[[ ! -f ${ZDOTDIR:-~}/.workenv.zsh ]] || source ${ZDOTDIR:-~}/.workenv.zsh
+
 #### END User configuration ####
 
 # starship prompt
