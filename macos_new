@@ -11,7 +11,7 @@ DOTFILES_REPO="git@github.com:apky/dotfiles.git"
 BREW_BASIC="git python@3.11 python@3.12 python@3.13 python@3.14 tlrc tree bat delta ripgrep fzf starship antidote font-hack-nerd-font"
 BREW_CASKS="brave-browser google-chrome font-meslo-for-powerlevel10k font-jetbrains-mono iterm2 visual-studio-code"
 BREW_ADDITIONAL_CASKS="anki netnewswire nordvpn signal 1password zoom adobe-acrobat-reader"
-BREW_DEV_TOOLS="kubernetes-cli awscli postgresql@15 restish pipx yarn jq golang-migrate temporal docker colima"
+BREW_DEV_TOOLS="libmagic kubernetes-cli awscli postgresql@15 redis restish pipx yarn jq golang-migrate temporal docker colima"
 BREW_DEV_TOOLS_CASKS="bitwarden slack openvpn-connect postman swiftbar notion gcloud-cli"
 
 GO_PACKAGES=(
