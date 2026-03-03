@@ -36,7 +36,13 @@
     "catppuccin-icons.hidesExplorerArrows": false, // Set to `true` to disable folding arrows next to folder icons.
     "catppuccin-icons.specificFolders": true,   // Set to `false` to only use the default folder icon.
     "catppuccin-icons.monochrome": false, // Set to `true` to only use the `text` fill color for all icons.
-    
+
+    // Set rust libraries to read only
+    "files.readonlyInclude": {
+        "**/.cargo/registry/src/**/*.rs": true,
+         "**/.cargo/git/checkouts/**/*.rs": true,
+        "**/lib/rustlib/src/rust/library/**/*.rs": true,
+    },
     "terminal.integrated.fontFamily": "'MesloLGS NF'",
     "terminal.integrated.fontLigatures.enabled": true,
     "database-client.autoSync": true,
