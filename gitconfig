@@ -12,7 +12,7 @@
 	followTags = true
 	# No need to manually push tags
 	# https://git-scm.com/docs/git-config#git-config-pushfollowTags
-[gpg]
-	format = ssh
-[commit]
-	gpgsign = true
+# [gpg]
+# 	format = ssh
+# [commit]
+# 	gpgsign = true
