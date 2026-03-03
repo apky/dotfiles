@@ -10,3 +10,6 @@
 
 # Docker
 docker-compose.yml
+
+# Virtual Environments
+.venv/
