@@ -27,3 +27,6 @@ path=(
   $HOME/go/bin(N)
   $path
 )
+
+# Set rust environment variables
+[[ ! -f $HOME/.cargo/env ]] || source $HOME/.cargo/env
