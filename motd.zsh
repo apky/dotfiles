@@ -43,6 +43,7 @@ if [[ $SECONDS_ELAPSED -ge $THRESHOLD ]]; then
     printf "%s brew upgrade %s           # upgrade everything %s\n" "$TEAL" "$PURPLE" "$RESET"
     printf "%s brew upgrade <formula> %s # upgrade specific formula %s\n" "$TEAL" "$PURPLE" "$RESET"
     printf "\n"
-    printf "%s antidote update: %s       # update antidote bundles %s\n" "$TEAL" "$PURPLE" "$RESET"
+    printf "%s antidote update  %s       # update antidote bundles %s\n" "$TEAL" "$PURPLE" "$RESET"
     printf "\n"
+    printf "%s rustup update %s          # update rust %s\n" "$TEAL" "$PURPLE" "$RESET"
 fi 
