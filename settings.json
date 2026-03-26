@@ -61,4 +61,5 @@
     "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
     "git.confirmSync": false,
     "git.replaceTagsWhenPull": true,
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
 }
