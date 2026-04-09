@@ -13,3 +13,6 @@ docker-compose.yml
 
 # Virtual Environments
 .venv/
+
+# LLM Agents
+.claude/
