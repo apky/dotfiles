@@ -31,6 +31,11 @@ $time\
 
 right_format = """$python"""
 
+[character]
+disabled = true
+success_symbol = '[Λ\\](bold green)'
+error_symbol = '[Λ\\](bold red)'
+
 [fill]
 symbol = " "
 style = 'fg:#a0a9cb'
