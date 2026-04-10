@@ -32,8 +32,8 @@ $time\
 right_format = """$python"""
 
 [character]
-# success_symbol = '[Λ\\](bold green)'
-# error_symbol = '[Λ\\](bold red)'
+# success_symbol = '[ᐱ\\](bold green)'
+# error_symbol = '[ᐱ\\](bold red)'
 
 [fill]
 symbol = " "
