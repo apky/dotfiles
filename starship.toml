@@ -32,8 +32,10 @@ $time\
 right_format = """$python"""
 
 [character]
-# success_symbol = '[Λ\\](bold green)'
-# error_symbol = '[Λ\\](bold red)'
+success_symbol = '[ᐱ∖](bold green)'
+error_symbol = '[ᐱ∖](bold red)'
+# ᐱ is CANADIAN SYLLABICS PI Unicode: U+1431, UTF-8: E1 90 B1
+# ∖ is SET MINUS Unicode: U+2216, UTF-8: E2 88 96
 
 [fill]
 symbol = " "
