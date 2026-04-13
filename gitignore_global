@@ -8,6 +8,9 @@
 .vscode/
 *.iml
 
+# Cache
+__pycache__/
+
 # Docker
 docker-compose.yml
 
