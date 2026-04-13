@@ -35,7 +35,14 @@ right_format = """$python"""
 success_symbol = '[ᐱ∖](bold green)'
 error_symbol = '[ᐱ∖](bold red)'
 # ᐱ is CANADIAN SYLLABICS PI Unicode: U+1431, UTF-8: E1 90 B1
+# Ʌ is LATIN CAPITAL LETTER TURNED V Unicode: U+0245, UTF-8: C9 85
+# Λ is GREEK CAPITAL LETTER LAMDA Unicode: U+039B, UTF-8: CE 9B
+# 𝚲 MATHEMATICAL BOLD CAPITAL LAMDA Unicode: U+1D6B2, UTF-8: F0 9D 9A B2
 # ∖ is SET MINUS Unicode: U+2216, UTF-8: E2 88 96
+# \ is REVERSE SOLIDUS Unicode: U+005C, UTF-8: 5C
+# ╲ is BOX DRAWINGS LIGHT DIAGONAL UPPER LEFT TO LOWER RIGHT Unicode: U+2572, UTF-8: E2 95 B2
+# ＼is FULLWIDTH REVERSE SOLIDUS Unicode: U+FF3C, UTF-8: EF BC BC
+# ﹨ is SMALL REVERSE SOLIDUS Unicode: U+FE68, UTF-8: EF B9 A8
 
 [fill]
 symbol = " "
