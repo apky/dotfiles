@@ -26,6 +26,7 @@
     },
     "gopls": {
         "ui.semanticTokens": true,
+        "build.buildFlags": ["-tags=integration"]
     },
     "go.testFlags": ["-v"],
     "diffEditor.ignoreTrimWhitespace": true,
