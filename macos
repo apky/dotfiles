@@ -19,7 +19,7 @@ GO_PACKAGES=(
   github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
 )
 
-NPM_GLOBAL_PACKAGES="eslint fkill-cli typescript swagger2openapi"
+NPM_GLOBAL_PACKAGES="eslint fkill-cli typescript@6.0.3 @hey-api/openapi-ts@0.99.0 swagger2openapi"
 
 GCLOUD_COMPONENTS=(
   gke-gcloud-auth-plugin 
