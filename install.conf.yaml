@@ -39,6 +39,9 @@
     ~/.config/starship.toml:
         create: true
         path: starship.toml
+    ~/.docker/config.json:
+        create: true
+        path: docker.config.json
     "~/Library/Application Support/Code/User/settings.json":
         create: false
         path: settings.json
