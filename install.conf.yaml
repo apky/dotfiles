@@ -9,6 +9,16 @@
     ~/.config:
       recursive: true
 
+- create:
+    ~/code:         # where I keep my projects         
+        mode: 0755
+    ~/.cache/pgsql: # where I keep my PostgreSQL log files  
+        mode: 0755
+    ~/.local/share: # XDG_DATA_HOME
+        mode: 0755
+    ~/.cache/zsh/completions: # where I keep my zsh completions (like _poetry)
+        mode: 0755
+
 - link:
     ~/.zshenv: zshenv
     ~/.macos: macos
@@ -24,6 +34,9 @@
     ~/.config/zsh/.aliases:
         create: true
         path: aliases
+    ~/.config/zsh/functions:
+        create: true
+        path: functions
     ~/.config/zsh/.motd.zsh:
         create: true
         path: motd.zsh
@@ -45,16 +58,6 @@
     "~/Library/Application Support/Code/User/settings.json":
         create: false
         path: settings.json
-
-- create:
-    ~/code:         # where I keep my projects         
-        mode: 0755
-    ~/.cache/pgsql: # where I keep my PostgreSQL log files  
-        mode: 0755
-    ~/.local/share: # XDG_DATA_HOME
-        mode: 0755
-    ~/.cache/zsh/completions: # where I keep my zsh completions (like _poetry)
-        mode: 0755
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

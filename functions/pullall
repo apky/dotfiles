@@ -1,0 +1,22 @@
+# pullall - fast-forward pull every git repo in the current directory
+#
+# Usage: pullall
+#
+# Loops over each immediate subdirectory, skips any that aren't git
+# repos, and runs `git pull --ff-only` in each one. Prints a colored
+# header per repo so the output is easy to scan.
+#
+# Uses --ff-only so it never creates merge commits: a repo whose local
+# branch has diverged from its upstream fails with an error and is left
+# untouched. Resolve that repo by hand, then rerun.
+#
+# Autoloaded from $ZDOTDIR/functions (see .zsh_plugins.txt).
+
+pullall() {
+    local d
+    for d in *(N/); do
+    [[ -d $d/.git ]] || continue
+    print -P "%F{cyan}== $d%f"
+    git -C "$d" pull --ff-only
+    done
+}
