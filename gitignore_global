@@ -19,3 +19,4 @@ docker-compose.yml
 
 # LLM Agents
 .claude/
+**/.claude/settings.local.json
